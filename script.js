@@ -36,8 +36,16 @@ function collectKey() {
 //Alert users if the API key is of an incorrect length (**resolved in a half assed manner**)
 //Display Name (**resolved in a half assed manner**)
 //Display Characters (**resolved in a half assed manner**)
-//Display Bank
+
+//Display Bank (**resolved**)
+//--Replace Item ID with Item Name (**resolved**)
+//--Display Item Icon (**resolved** but kinda.)
+
 //Display Material Storage
+//--Replace Item ID with Item Name (**resolved**)
+//--Display Item Icon (**resolved** but kinda.)
+
+//Display Currency
 //Make character list clickable
 //---Make each individual character clickable
 //---when clicked display character inventory
@@ -51,7 +59,7 @@ function collectKey() {
 //============================////TEST SPACE///////==========================//
 
 function GetAccount(key) {
-    //Fetch account name
+    //Fetch and display account name
     fetch("https://api.guildwars2.com/v2/account?access_token=" + key)
     .then(response =>(response.json()))
     .then(function(data) {
@@ -61,11 +69,48 @@ function GetAccount(key) {
     fetch("https://api.guildwars2.com/v2/characters?access_token=" + key)
     .then(response =>(response.json()))
     .then(function(data) {
-        document.getElementById("characters").innerHTML = data
+        
+         document.getElementById("characters").innerHTML =  data
+        
     } )
+    //Fetch display Bank items
+    /*TO DO 
+        Clean up and make more readable
+    */
+    fetch("https://api.guildwars2.com/v2/account/bank?access_token=" + key)
+    .then(response =>(response.json()))
+    .then(function(data) {
+        console.log(data)
+        //For loop to iterate and fetch icons and name for each material listed in the bank
+        for(let i = 0; i <data.length; i++){
+            if(data[i] === null) {
+                console.log("Blank bank tab")
+            } else {
+                fetch("https://api.guildwars2.com/v2/items/" + data[i].id)
+                .then(response => response.json())
+                .then(function(data) {
+                    document.getElementById("bank").innerHTML += "Item Name: " + data.name + "<img src=" + data.icon + ">" + "<br />"
+            
+                })
+            
+            }
+        }
+    } )
+    //Fetch and display Material Storage items
+    /*TO DO
+        Clean up and make more readable
+    */
+    fetch("https://api.guildwars2.com/v2/account/materials?access_token=" + key)
+    .then(response => (response.json()))
+    .then(function(data) {
+        //For loop to iterate and fetch icons and name for each material listed in the Material Storage
+        for(let i = 0; i < data.length; i++) {
+            fetch("https://api.guildwars2.com/v2/items/" + data[i].id)
+            .then(response => response.json())
+            .then(function(data) {
+                document.getElementById("materialStorage").innerHTML += "item Name: " + data.name + "<img src=" + data.icon + ">" + "<br />"
+                console.log(data.icon)
+            })
+        }
+    })
 }
-
-//Action Plan
-/*
-    Create function to determine if API key is valid or not.
-*/
