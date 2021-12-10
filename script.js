@@ -2,7 +2,7 @@
 //Variable for submit button
 var button = document.getElementById('button')
 
-//Event Listener"
+//Event Listeners
 button.addEventListener('click', collectKey)
 
 
@@ -21,12 +21,12 @@ function collectKey() {
             alert("length of key is invalid")
         } else
         GetAccount(key)
+    }
    
 
 
 
 ////==========================================================================////
-//Bug in this function: If blank or invalid, GetAccount function call is made and 401 response is received. 
 
 /*TO DO*/
 
@@ -34,46 +34,36 @@ function collectKey() {
 //Alert users if the input field is blank (**resolved in a half assed manner**)
 //Check if API Key is 72 characters long (**Resolved**)
 //Alert users if the API key is of an incorrect length (**resolved in a half assed manner**)
-}
+//Display Name (**resolved in a half assed manner**)
+//Display Characters (**resolved in a half assed manner**)
+//Display Bank
+//Display Material Storage
+//Make character list clickable
+//---Make each individual character clickable
+//---when clicked display character inventory
+//---After character selection is made, allow other characters to be selected
+//---If other characters are selected, replace inventory with newly selected character
+//If key is invalid, do not display div class "write"
+//If key is invalid (401/400 response received from server), alert user
 
 
-//=========================================================================//
-/*Function that needs action (is being tested in Test Space)
-function GetAccount(key) {
-    fetch("https://api.guildwars2.com/v2/account?access_token=" + key)
-    .then(response =>(response.json()))
-    .then(data => console.log(data))
-    } )
-}
-*/
 
 //============================////TEST SPACE///////==========================//
 
 function GetAccount(key) {
+    //Fetch account name
     fetch("https://api.guildwars2.com/v2/account?access_token=" + key)
     .then(response =>(response.json()))
     .then(function(data) {
-        document.getElementById("testToWrite").innerHTML = data.wvw_rank
+        document.getElementById("accountName").innerHTML = data.name
+    } )
+    //Fetch Character list
+    fetch("https://api.guildwars2.com/v2/characters?access_token=" + key)
+    .then(response =>(response.json()))
+    .then(function(data) {
+        document.getElementById("characters").innerHTML = data
     } )
 }
-
-
-//===========================NOTES=======================================//
-
-//Authentication is successful with the API Key in plain text below:
-//Account information is presented in browser console with the following code.
-
-/*
-
-fetch("https://api.guildwars2.com/v2/account?access_token=7B6B3CE1-6D31-E243-AF68-7600D0445B9D7FBF123E-1769-4CC3-8940-4F86D9495063")
-.then(response =>response.json())
-.then(data =>console.log(data))
-
-*/
-
-/* CODE TO RENDER TO THE DOCUMENT
-    document.getElementById("testToWrite").innerHTML = a
-*/
 
 //Action Plan
 /*
