@@ -6,9 +6,7 @@ var button = document.getElementById('button')
 button.addEventListener('click', collectKey)
 
 
-
 //==================================Functions==============================//
-//Function that triggers when submit button is clicked and stores user input into global variable (variable name = key).
 
 
 function collectKey() {
@@ -29,25 +27,17 @@ function collectKey() {
 ////==========================================================================////
 
 /*TO DO*/
-
-//Check if input field is blank or not. (**resolved**)
-//Alert users if the input field is blank (**resolved in a half assed manner**)
-//Check if API Key is 72 characters long (**Resolved**)
-//Alert users if the API key is of an incorrect length (**resolved in a half assed manner**)
-//Display Name (**resolved in a half assed manner**)
-//Display Characters (**resolved in a half assed manner**)
-
-//Display Bank (**resolved**)
-//--Replace Item ID with Item Name (**resolved**)
 //--Display Item Icon (**resolved** but kinda.)
 
-//Display Material Storage
+//Display Material Storage (**resolved**)
+//--Make multiple material calls if material storage has over 200 items
 //--Replace Item ID with Item Name (**resolved**)
-//--Display Item Icon (**resolved** but kinda.)
 
-//Display Currency
+//Display Currency (**resolved**)
+//--Display Currency icon
+
+
 //Make character list clickable
-//---Make each individual character clickable
 //---when clicked display character inventory
 //---After character selection is made, allow other characters to be selected
 //---If other characters are selected, replace inventory with newly selected character
@@ -63,15 +53,16 @@ function GetAccount(key) {
     fetch("https://api.guildwars2.com/v2/account?access_token=" + key)
     .then(response =>(response.json()))
     .then(function(data) {
-        document.getElementById("accountName").innerHTML = data.name
+        document.getElementById("accountName").innerHTML = "<p>" + data.name + "</p>"
     } )
     //Fetch Character list
     fetch("https://api.guildwars2.com/v2/characters?access_token=" + key)
     .then(response =>(response.json()))
+    //add character list to document
     .then(function(data) {
-        
-         document.getElementById("characters").innerHTML =  data
-        
+        for(let i =0; i<data.length; i++){
+         document.getElementById("characters").innerHTML +=  "<p class='characterName'>" + data[i] + "</p>"
+        }
     } )
     //Fetch display Bank items
     /*TO DO 
@@ -80,37 +71,86 @@ function GetAccount(key) {
     fetch("https://api.guildwars2.com/v2/account/bank?access_token=" + key)
     .then(response =>(response.json()))
     .then(function(data) {
-        console.log(data)
-        //For loop to iterate and fetch icons and name for each material listed in the bank
-        for(let i = 0; i <data.length; i++){
-            if(data[i] === null) {
-                console.log("Blank bank tab")
+        const bankIds = []
+        for(let i = 0; i< data.length; i++) {
+            if(data[i] == null || undefined) {
+                console.log("empty bank slot")
             } else {
-                fetch("https://api.guildwars2.com/v2/items/" + data[i].id)
-                .then(response => response.json())
-                .then(function(data) {
-                    document.getElementById("bank").innerHTML += "Item Name: " + data.name + "<img src=" + data.icon + ">" + "<br />"
-            
-                })
-            
+                bankIds.push(data[i].id)
             }
         }
+        //Iterate through results and display them on document
+        getItems(bankIds).then(function(results) {
+            for(let i = 0; i<results.length;i++) {
+                document.getElementById("bank").innerHTML += "<div class='tooltip'><img class='icon' src=" + results[i].icon + "><span class='tooltiptext'>" + results[i].name + "</span></div>"
+            }
+        })
     } )
-    //Fetch and display Material Storage items
-    /*TO DO
-        Clean up and make more readable
-    */
+
+
+    //Fetch Material items
     fetch("https://api.guildwars2.com/v2/account/materials?access_token=" + key)
-    .then(response => (response.json()))
+    .then(response => response.json())
     .then(function(data) {
-        //For loop to iterate and fetch icons and name for each material listed in the Material Storage
-        for(let i = 0; i < data.length; i++) {
-            fetch("https://api.guildwars2.com/v2/items/" + data[i].id)
-            .then(response => response.json())
-            .then(function(data) {
-                document.getElementById("materialStorage").innerHTML += "item Name: " + data.name + "<img src=" + data.icon + ">" + "<br />"
-                console.log(data.icon)
-            })
-        }
+        const materialIds = []
+        getItems(materialIds).then(function(results) {
+            //Iterate through results and display them on document
+            for(let i =0; i<results.length; i++) {
+                document.getElementById("materialStorage").innerHTML += "Item Name: " + results[i].name + "</br>"
+            }
+        })
     })
+
+    //Fetch Currency
+    fetch("https://api.guildwars2.com/v2/account/wallet?access_token=" + key)
+    .then(response => response.json())
+    .then(function(data) {
+        fetchCurrencies(data).then(function(results) {
+            for(let i = 0; i<results.length; i++) {
+                document.getElementById("currency").innerHTML += "<p>" + results[i].name + ": " + results[i].value + "</p><img src=" + results[i].icon + ">"
+            }
+        })
+    })
+}
+
+async function getItems(ids) {
+//     /**
+//      TO DO
+//      Segment incoming array into no more than 200 count arrays if incoming parameter is over 200.
+//      **/
+    var items
+     await fetch("https://api.guildwars2.com/v2/items?ids=" + ids)
+    .then(response => response.json())
+    .then(data => items = data)
+    return items
+}
+
+/** 
+    TO DO
+    Clean up this code. To many brackets are making it hard to read.
+    And need meaningful variable names lol
+**/
+async function fetchCurrencies(wallet) {
+    const whatIgot = []
+    //Fetch all currencies
+    await fetch("https://api.guildwars2.com/v2/currencies?ids=all")
+    .then(response => response.json())
+    .then(function(data) {
+        //Compare wallet data with currency API to get the name and return name, id and value.
+       wallet.filter(function(o1) {
+            return data.filter(function(o2) {
+                if (o1.id === o2.id) {
+                    return whatIgot.push(
+                        {
+                            "id": o1.id,
+                            "name": o2.name,
+                            "value": o1.value,
+                            "icon": o2.icon
+                        }
+                    )
+                }
+            })
+        })
+    })
+    return whatIgot
 }

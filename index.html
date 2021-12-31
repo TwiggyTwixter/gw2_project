@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GW2 Legendary shit</title>
+    <title>GW2 Legendary project</title>
+    <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
   </head>
   <!-- 
     //TO DO//
     *Style HTML
-   -->
+   --> 
   <body>
       <div class="Search">
         <p>Enter gw2 API key</p>
@@ -20,18 +21,24 @@
       <!-- 
         //TO DO//
         *Hide below div until valid API key is authenticated and data is provided
-        *Change below div class name to something meaningful
         *Below div should probably have an ID instead of a class
       -->
       <div class="account">
-        <h1>Account Name</h1>
+        <div id="accountname">
+          <h1>Account Name</h1>
+        </div>
         <p id="accountName"></p>
-        <h1>Character List</h1>
-        <p id="characters"></p>
-        <h1>Bank</h1>
-        <p id="bank"></p>
+        <div id="characters">
+          <h1>Character List</h1>
+        </div>
+        <div id="bank">
+          <h1 >Bank</h1>
+        </div>
         <h1>Material Storage</h1>
         <p id="materialStorage"></p>
+        <div id="currency">
+          <h1>Currency</h1>
+        </div>
       </div>
       <script src="script.js"></script>
   </body>
