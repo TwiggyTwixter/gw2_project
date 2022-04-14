@@ -1,0 +1,85 @@
+#intro {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#intro input {
+    width: 576px;
+}
+
+#intro button {
+    display: block;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#selectLegendaryWeapon {
+    text-align: center;
+    visibility: hidden;
+}
+
+#Gen1 {
+    text-align: center;
+}
+
+#Gen1 li {
+    display: inline-block;
+}
+
+#Gen1 img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: 50px;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+}
+
+#Gen1 li:hover{
+    cursor: pointer;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+#loader {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #292a2b; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 1s linear infinite;
+  visibility: hidden;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .tooltip:hover {
+      transform: scale(1.5);
+  }
+
+  #Bifrost {
+      transition: visibility 2s;
+  }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guild Wars 2: Legendary To-Do Project (Title Pending)</title>
+    <link rel='stylesheet' href="style.css">
+</head>
+<body id="start">
+    <div id="intro">
+        <h1>Guild Wars 2: Legendary To-Do Project (Title Pending)</h1>
+        <p>With this app, you can track your materials on your journey to complete a Legendary Weapon within the world of Tyria</p>
+     
+            <p>Enter your Guild Wars 2 API Key</p>
+            <input id="key" type=text placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXXXXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"></input>
+            <button id="submit"> Let's get your materials</button>
+       
+    </div>
+    <div id="loader"></div>
+    <div id="selectLegendaryWeapon">
+        <h1>Gen 1 only (so far)</h1>
+        <p>Now Select your Weapon of Choice</p>
+        <Ul id="Gen1" >
+            <li  class="tooltip" id="Bifrost"><p class="tooltiptext" >The Bifrost</p><img id="Bifrost" src="https://render.guildwars2.com/file/FD221A90427ADBD29B7E2DF8BDAF98BB16391162/456025.png"></li>
+            <li id="Bolt" class="tooltip"><p class="tooltiptext">Bolt</p><img src="https://render.guildwars2.com/file/FE47E046D10DF27508910869B5EB040F6BBBE793/456026.png"></li>
+            <li id="The Dreamer" class="tooltip"><p p class="tooltiptext">The Dreamer</p><img src="https://render.guildwars2.com/file/98F0ED6A7F7A310FCE6D161C0B36B0071E4D1917/456011.png"></li>
+            <li id="Flameseeker" class="tooltip"><p class="tooltiptext">The Flameseeker Prophecies</p><img src="https://render.guildwars2.com/file/BE58181BEA0559E60873ED940D0408D0596B4464/456021.png"></li>
+            <li id="Frenzy" class="tooltip"><p class="tooltiptext">Frenzy</p><img src="https://render.guildwars2.com/file/67EB25E29BA73D96B34523C02B256516DD60DA06/456024.png"></li>
+            <li id="Frostfang" class="tooltip"><p class="tooltiptext">Frostfang</p><img src="https://render.guildwars2.com/file/0F9C08DE12ADD1082A103DC6EF7401281B23985E/456009.png"></li>
+            <li id="Howler" class="tooltip"><p class="tooltiptext">Howler</p><img src="https://render.guildwars2.com/file/19E01CC637F4F370B43E132ACEBFD7C6E1570DE7/456029.png"></li>
+            <li id="Incinerator" class="tooltip"><p class="tooltiptext">Incinerator</p><img src="https://render.guildwars2.com/file/D9B12A1EBEDC04047295CF0A66E43E650297D429/456012.png"></li>
+            <li id="The Juggernaut" class="tooltip"><p class="tooltiptext">The Juggernaut</p><img src="https://render.guildwars2.com/file/F9FAEDF77052A514E876145908B3B3346314A13E/456015.png"></li>
+            <li id="Kudzu" class="tooltip"><p class="tooltiptext">Kudzu</p><img src="https://render.guildwars2.com/file/B604C764D3E19E391F5E24CCFBC414500606BD29/456010.png"></li>
+            <li id="Kraitkin" class="tooltip"><p class="tooltiptext">Kraitkin</p><img src="https://render.guildwars2.com/file/1FAD3D4BE1FA503C49FCF532582867FB060664E4/456028.png"></li>
+            <li id="Kamohoali" class="tooltip"><p class="tooltiptext">Kamohoali'i Kotaki</p><img src="https://render.guildwars2.com/file/4705EC549A3296F493312C4018754816175E5D28/456016.png"></li>
+            <li id="Meteorlogicus" class="tooltip"><p class="tooltiptext">Meteorlogicus</p><img src="https://render.guildwars2.com/file/AC940BF377C5D3EF13B2060D53EF19F1BC34BE48/456020.png"></li>
+            <li id="The Minstrel" class="tooltip"><p class="tooltiptext">The Minstrel</p><img src="https://render.guildwars2.com/file/D3DBEB4FE4C81401AF6EA905FE16E4F3050F540B/456013.png"></li>
+            <li id="The Moot" class="tooltip"><p class="tooltiptext">The Moot</p><img src="https://render.guildwars2.com/file/C0302BC8DDD84D20F0B73C1D702438F5534F3308/456017.png"></li>
+            <li id="The Predator" class="tooltip"><p class="tooltiptext">The Predator</p><img src="https://render.guildwars2.com/file/3ECD99482DD865AA7D42B2EF6AFEFA705294555C/456019.png"></li>
+            <li id="Quip" class="tooltip"><p class="tooltiptext">Quip</p><img src="https://render.guildwars2.com/file/03342FFE0E35B35D5207B65ECB0C1D06442377AB/456018.png"></li>
+            <li id="Rodgort" class="tooltip"><p class="tooltiptext">Rodgort</p><img src="https://render.guildwars2.com/file/B1D6CB3AB4017633280ACDB36470F46829FDDD13/456027.png"></li>
+            <li id="Sunrise" class="tooltip"><p class="tooltiptext">Sunrise</p><img src="https://render.guildwars2.com/file/EFF16C4F19792627355DC294E6D7093F544921E7/456030.png"></li>
+            <li id="Twilight" class="tooltip"><p class="tooltiptext">Twilight</p><img src="https://render.guildwars2.com/file/CE3AF0B7B9BB6244726779F5B6A930541BA6C15F/456031.png"></li>
+            <li id="Eternity" class="tooltip"><p class="tooltiptext">Eternity</p><img src="https://render.guildwars2.com/file/A30DA1A1EF05BD080C95AE2EF0067BADCDD0D89D/456014.png"></li>
+        </Ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

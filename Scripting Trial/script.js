@@ -27,20 +27,22 @@ function collectKey() {
 ////==========================================================================////
 
 /*TO DO*/
-//--Display Item Icon (**resolved** but kinda.)
+//--Display Item Icon (**resolved**)
 
 //Display Material Storage (**resolved**)
-//--Make multiple material calls if material storage has over 200 items
+//--Make multiple material calls if material storage has over 200 items (**resolved**)
 //--Replace Item ID with Item Name (**resolved**)
 
 //Display Currency (**resolved**)
-//--Display Currency icon
+//--Display Currency icon (**resolved**)
 
 
 //Make character list clickable
 //---when clicked display character inventory
 //---After character selection is made, allow other characters to be selected
 //---If other characters are selected, replace inventory with newly selected character
+
+
 //If key is invalid, do not display div class "write"
 //If key is invalid (401/400 response received from server), alert user
 
@@ -64,7 +66,9 @@ function GetAccount(key) {
          document.getElementById("characters").innerHTML +=  "<p class='characterName'>" + data[i] + "</p>"
         }
     } )
-    //Fetch display Bank items
+
+
+    //Fetch Bank items
     /*TO DO 
         Clean up and make more readable
     */
@@ -92,14 +96,33 @@ function GetAccount(key) {
     fetch("https://api.guildwars2.com/v2/account/materials?access_token=" + key)
     .then(response => response.json())
     .then(function(data) {
-        const materialIds = []
-        getItems(materialIds).then(function(results) {
-            //Iterate through results and display them on document
-            for(let i =0; i<results.length; i++) {
-                document.getElementById("materialStorage").innerHTML += "Item Name: " + results[i].name + "</br>"
+        
+        //psuedo code I found on the stackoverflow. It works and does what i need.
+        //TO DO
+        //--clean up  the code to make it more readable
+        var chunk = 200
+        console.log("data length: " + data.length)
+        for(let i=0; i <data.length; i += chunk) {
+            const anothertemp = [];
+           let temporary = [];
+           temporary = data.slice(i, i + chunk)
+            
+            for(let i = 0; i <temporary.length; i++) {
+                if(temporary[i] == null || undefined) {
+                    console.log("empty bank slot")
+                } else {
+                    anothertemp.push(temporary[i].id)
+                }
             }
-        })
+            getItems(anothertemp).then(function(results) {
+                for(let i=0; i<results.length; i++) {
+                    document.getElementById('materialStorage').innerHTML += "<div class='tooltip'><img class='icon' src=" + results[i].icon +"><span class='tooltiptext'>" + results[i].name + "</span></div>"
+                }
+            })
+        }
     })
+
+
 
     //Fetch Currency
     fetch("https://api.guildwars2.com/v2/account/wallet?access_token=" + key)
@@ -113,17 +136,25 @@ function GetAccount(key) {
     })
 }
 
+
+
+
+
+
+
 async function getItems(ids) {
 //     /**
 //      TO DO
 //      Segment incoming array into no more than 200 count arrays if incoming parameter is over 200.
 //      **/
-    var items
-     await fetch("https://api.guildwars2.com/v2/items?ids=" + ids)
-    .then(response => response.json())
-    .then(data => items = data)
-    return items
+var items
+await fetch("https://api.guildwars2.com/v2/items?ids=" + ids)
+.then(response => response.json())
+.then(data => items = data)
+return items
 }
+
+
 
 /** 
     TO DO
